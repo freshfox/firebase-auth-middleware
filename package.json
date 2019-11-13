@@ -1,6 +1,6 @@
 {
   "name": "firebase-auth-provider",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple express middleware and provider for Firebase Auth",
   "main": "dist/lib/index.js",
   "types": "dist/lib/index.d.ts",
@@ -25,7 +25,6 @@
     "tsconfig.json",
     "README.md"
   ],
-
   "scripts": {
     "test": "NODE_ENV=test mocha dist/test",
     "build": "tsc",
