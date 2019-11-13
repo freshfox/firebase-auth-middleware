@@ -2,10 +2,30 @@
   "name": "firebase-auth-provider",
   "version": "1.0.1",
   "description": "A simple express middleware and provider for Firebase Auth",
-  "main": "index.js",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "author": "Freshfox OG",
   "license": "MIT",
   "private": false,
+  "keywords": [
+    "firebase",
+    "typescript",
+    "auth",
+    "express"
+  ],
+  "directories": {
+    "test": "test",
+    "lib": "src"
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "test/",
+    ".editorconfig",
+    "tsconfig.json",
+    "README.md"
+  ],
+
   "scripts": {
     "test": "NODE_ENV=test mocha dist/test",
     "build": "tsc",
