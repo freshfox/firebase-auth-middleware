@@ -1,6 +1,6 @@
 {
   "name": "firebase-auth-middleware",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A simple express middleware and provider for Firebase Auth",
   "main": "index.js",
   "author": "Freshfox OG",
