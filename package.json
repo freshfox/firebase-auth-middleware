@@ -1,5 +1,5 @@
 {
-  "name": "firebase-auth-middleware",
+  "name": "firebase-auth-provider",
   "version": "1.0.0",
   "description": "A simple express middleware and provider for Firebase Auth",
   "main": "index.js",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:freshfox/firebase-auth-middleware.git"
+    "url": "git@github.com:freshfox/firebase-auth-provider.git"
   },
   "dependencies": {
     "firebase-admin": "^8.7.0",
