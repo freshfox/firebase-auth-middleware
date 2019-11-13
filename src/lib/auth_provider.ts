@@ -7,11 +7,9 @@ import * as uuid from 'uuid/v4';
 export const FirebaseAuthProvider = Symbol('FirebaseAuthProvider');
 export const FirebaseAuth = Symbol('FirebaseAuth');
 
-export interface IFirebaseStorageConfig {
-	bucket: string;
-}
-
 export interface IAuthProvider {
+
+	getUser(uid: string): Promise<UserRecord>;
 
 	createUser(name: string, email: string, password: string): Promise<UserRecord>;
 
@@ -21,26 +19,31 @@ export interface IAuthProvider {
 
 	verifyToken(token: string): Promise<DecodedIdToken>;
 
+	listUsers(): Promise<UserRecord[]>;
+
 }
 
 @injectable()
 export class FakeAuthProvider implements IAuthProvider {
 
-	private users = {};
+	private users: UserRecord[] = [];
 
-	createUser(name: string, email: string, password: string): Promise<UserRecord> {
-		const token = `${email}`;
+	async getUser(uid: string) {
+		return this.users.find(u => u.uid === uid);
+	}
 
+	async createUser(name: string, email: string, password: string): Promise<UserRecord> {
 		if (password.length < 6) {
 			return Promise.reject(new Error('The password must be a string with at least 6 characters.'))
 		}
-
-		this.users[token] = {
+		const user: UserRecord = {
 			uid: uuid(),
 			displayName: name,
-			email: email
-		};
-		return Promise.resolve(this.users[token]);
+			email: email,
+			passwordHash: password
+		} as any;
+		this.users.push(user);
+		return user;
 	}
 
 	async verifyToken(token: string): Promise<any> {
@@ -51,12 +54,27 @@ export class FakeAuthProvider implements IAuthProvider {
 		return Promise.reject('User not found');
 	}
 
-	updateUser(userId: string, name: string, email: string, password: string): Promise<UserRecord> {
-		return undefined;
+	async updateUser(userId: string, name: string, email: string, password: string): Promise<UserRecord> {
+		const user = await this.getUser(userId);
+		if (!user) {
+			return null;
+		}
+		user.displayName = name;
+		user.email = email;
+		user.passwordHash = password;
+		return user;
 	}
 
 	deleteUser(userId: string): Promise<void> {
-		return undefined;
+		const index = this.users.findIndex(u => u.uid === userId);
+		if (index >= 0) {
+			this.users.splice(index, 1);
+		}
+		return Promise.resolve();
+	}
+
+	listUsers(): Promise<UserRecord[]> {
+		return Promise.resolve(this.users);
 	}
 
 }

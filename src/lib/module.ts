@@ -18,12 +18,12 @@ export class FirebaseAuthModule {
 		});
 	}
 
-	createWithFakeAuthProvider() {
+	static createWithFakeAuthProvider() {
 		const md = new FirebaseAuthModule(FakeAuthProvider, null);
 		return md.module;
 	}
 
-	createWithFirebaseAuthProvider(auth: admin.auth.Auth) {
+	static createWithFirebaseAuthProvider(auth: admin.auth.Auth) {
 		const md = new FirebaseAuthModule(FakeAuthProvider, auth);
 		return md.module;
 	}

@@ -2,11 +2,16 @@ import {inject, injectable} from 'inversify';
 import * as admin from 'firebase-admin';
 import DecodedIdToken = admin.auth.DecodedIdToken;
 import {FirebaseAuth, IAuthProvider} from './auth_provider';
+import UserRecord = admin.auth.UserRecord;
 
 @injectable()
 export class FirebaseAuthProviderImpl implements IAuthProvider {
 
 	constructor(@inject(FirebaseAuth) protected auth: admin.auth.Auth){
+	}
+
+	getUser(uid: string): Promise<UserRecord> {
+		return this.auth.getUser(uid);
 	}
 
 	createUser(name: string, email: string, password: string) {
@@ -39,12 +44,7 @@ export class FirebaseAuthProviderImpl implements IAuthProvider {
 
 	async listUsers() {
 		const users = await this.auth.listUsers();
-		return users.users.map((user) => {
-			return {
-				email: user.email,
-				name: user.displayName
-			}
-		})
+		return users.users;
 	}
 
 	async deleteUser(userId: string) {
