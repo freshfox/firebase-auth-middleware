@@ -1,7 +1,7 @@
-import {inject, injectable} from 'inversify';
 import * as admin from 'firebase-admin';
-import DecodedIdToken = admin.auth.DecodedIdToken;
+import {inject, injectable} from 'inversify';
 import {FirebaseAuth, IAuthProvider} from './auth_provider';
+import DecodedIdToken = admin.auth.DecodedIdToken;
 import UserRecord = admin.auth.UserRecord;
 
 @injectable()
