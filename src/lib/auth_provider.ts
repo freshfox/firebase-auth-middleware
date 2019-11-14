@@ -47,7 +47,7 @@ export class FakeAuthProvider implements IAuthProvider {
 	}
 
 	async verifyToken(token: string): Promise<any> {
-		const user = this.users[token];
+		const user = await this.getUser(token);
 		if (user) {
 			return user;
 		}
@@ -75,6 +75,10 @@ export class FakeAuthProvider implements IAuthProvider {
 
 	listUsers(): Promise<UserRecord[]> {
 		return Promise.resolve(this.users);
+	}
+
+	clear() {
+		this.users = [];
 	}
 
 }
