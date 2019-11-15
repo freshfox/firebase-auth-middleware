@@ -1,7 +1,8 @@
+import 'reflect-metadata';
+import {injectable} from "inversify";
 import * as admin from 'firebase-admin';
 import DecodedIdToken = admin.auth.DecodedIdToken;
 import UserRecord = admin.auth.UserRecord;
-import {injectable} from "inversify";
 import * as uuid from 'uuid/v4';
 
 export const FirebaseAuthProvider = Symbol('FirebaseAuthProvider');
