@@ -8,7 +8,7 @@ export class FirebaseAuthModule {
 
 	module: ContainerModule;
 
-	constructor(authProvider: new () => IAuthProvider, auth: admin.auth.Auth) {
+	constructor(authProvider:  new (...args: any[]) =>IAuthProvider, auth: admin.auth.Auth) {
 		this.module = new ContainerModule((bind) => {
 			bind(FirebaseAuthProviderImpl).toSelf().inSingletonScope();
 			bind(FakeAuthProvider).toSelf().inSingletonScope();
@@ -26,7 +26,7 @@ export class FirebaseAuthModule {
 	}
 
 	static createWithFirebaseAuthProvider(auth: admin.auth.Auth) {
-		const md = new FirebaseAuthModule(FakeAuthProvider, auth);
+		const md = new FirebaseAuthModule(FirebaseAuthProviderImpl, auth);
 		return md.module;
 	}
 }
