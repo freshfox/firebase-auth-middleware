@@ -10,8 +10,6 @@ export class FirebaseAuthModule {
 
 	constructor(authProvider:  new (...args: any[]) =>IAuthProvider, auth: admin.auth.Auth) {
 		this.module = new ContainerModule((bind) => {
-			bind(FirebaseAuthProviderImpl).toSelf().inSingletonScope();
-			bind(FakeAuthProvider).toSelf().inSingletonScope();
 			bind(FirebaseAuthMiddleware).toSelf().inSingletonScope();
 			bind<IAuthProvider>(FirebaseAuthProvider).to(authProvider).inSingletonScope();
 			if (auth) {
