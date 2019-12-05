@@ -22,12 +22,12 @@ export class FirebaseAuthProviderImpl implements IAuthProvider {
 		});
 	}
 
-	updateUser(userId: string, name: string, email: string, password: string) {
-		return this.auth.updateUser(userId, {
-			displayName: name,
-			email: email,
-			password: password
-		});
+	updateUser(userId: string, name?: string, email?: string, password?: string) {
+		const updates: admin.auth.UpdateRequest = {};
+		if (name) updates.displayName = name;
+		if (email) updates.email = email;
+		if (password) updates.password = password;
+		return this.auth.updateUser(userId, updates);
 	}
 
 	setEmail(userId: string, email: string) {

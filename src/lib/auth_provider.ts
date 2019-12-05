@@ -14,7 +14,7 @@ export interface IAuthProvider {
 
 	createUser(name: string, email: string, password: string): Promise<UserRecord>;
 
-	updateUser(userId: string, name: string, email: string, password: string): Promise<UserRecord>;
+	updateUser(userId: string, name?: string, email?: string, password?: string): Promise<UserRecord>;
 
 	setEmail(userId: string, email: string): Promise<UserRecord>
 
@@ -64,9 +64,9 @@ export class FakeAuthProvider implements IAuthProvider {
 		if (!user) {
 			return null;
 		}
-		user.displayName = name;
-		user.email = email;
-		user.passwordHash = password;
+		if (name) user.displayName = name;
+		if (email) user.email = email;
+		if (password) user.passwordHash = password;
 		return user;
 	}
 
