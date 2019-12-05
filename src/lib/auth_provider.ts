@@ -16,6 +16,10 @@ export interface IAuthProvider {
 
 	updateUser(userId: string, name: string, email: string, password: string): Promise<UserRecord>;
 
+	setEmail(userId: string, email: string): Promise<UserRecord>
+
+	setPassword(userId: string, password: string): Promise<UserRecord>
+
 	deleteUser(userId: string): Promise<void>;
 
 	verifyToken(token: string): Promise<DecodedIdToken>;
@@ -65,6 +69,25 @@ export class FakeAuthProvider implements IAuthProvider {
 		user.passwordHash = password;
 		return user;
 	}
+
+	async setEmail(userId: string, email: string) {
+		const user = await this.getUser(userId);
+		if (!user) {
+			return null;
+		}
+		user.email = email;
+		return user;
+	}
+
+	async setPassword(userId: string, password: string) {
+		const user = await this.getUser(userId);
+		if (!user) {
+			return null;
+		}
+		user.passwordHash = password;
+		return user;
+	}
+
 
 	deleteUser(userId: string): Promise<void> {
 		const index = this.users.findIndex(u => u.uid === userId);
