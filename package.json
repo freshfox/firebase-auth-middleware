@@ -36,16 +36,19 @@
     "url": "git@github.com:freshfox/firebase-auth-provider.git"
   },
   "dependencies": {
-    "firebase-admin": "^8.7.0",
     "inversify": "^5.0.1",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@types/mocha": "^5.2.7",
+    "firebase-admin": "^8.8.0",
     "mocha": "^6.2.2",
     "node-env-file": "^0.1.8",
     "should": "^13.2.3",
     "ts-node": "^8.5.0",
     "typescript": "^3.7.2"
+  },
+  "peerDependencies": {
+    "firebase-admin": "^8.8.0"
   }
 }
