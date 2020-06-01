@@ -3,7 +3,7 @@ import {injectable} from "inversify";
 import * as admin from 'firebase-admin';
 import DecodedIdToken = admin.auth.DecodedIdToken;
 import UserRecord = admin.auth.UserRecord;
-import * as uuid from 'uuid/v4';
+import {v4 as uuid} from 'uuid';
 
 export const FirebaseAuthProvider = Symbol('FirebaseAuthProvider');
 export const FirebaseAuth = Symbol('FirebaseAuth');
