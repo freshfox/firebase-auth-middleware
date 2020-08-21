@@ -1,18 +1,19 @@
 import {inject, injectable} from 'inversify';
 import {FirebaseAuthProvider, IAuthProvider} from './auth_provider';
+import {NextFunction, Request, Response} from 'express';
 
 @injectable()
-export abstract class FirebaseAuthMiddleware {
+export abstract class FirebaseAuthMiddleware<T = any> {
 
 	protected excludedPaths: string[] = [];
 
 	protected  constructor(@inject(FirebaseAuthProvider) private auth: IAuthProvider) {}
 
-	getMiddleware(): (req, res, next) => void {
+	getMiddleware(): (req: Request, res: Response, next: NextFunction) => void {
 		return this.handle.bind(this);
 	}
 
-	async handle(req, res, next) {
+	async handle(req: Request, res: Response, next: NextFunction) {
 		let needsAuth = !this.excludedPaths || !(this.excludedPaths.find((path) => {
 			return req.path.startsWith(path);
 		}));
@@ -59,7 +60,7 @@ export abstract class FirebaseAuthMiddleware {
 		return null;
 	}
 
-	abstract findUser(uid: string);
+	abstract findUser(uid: string): Promise<T>;
 
 	abstract createError(msg: string): Error;
 

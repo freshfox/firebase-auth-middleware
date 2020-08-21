@@ -3,6 +3,11 @@ import {inject, injectable} from 'inversify';
 import {FirebaseAuth, IAuthProvider} from './auth_provider';
 import DecodedIdToken = admin.auth.DecodedIdToken;
 import UserRecord = admin.auth.UserRecord;
+import {Request} from "express";
+
+export type AuthenticatedRequest<T> = Request & {
+	user: T
+}
 
 @injectable()
 export class FirebaseAuthProviderImpl implements IAuthProvider {

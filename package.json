@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^5.2.7",
+    "express": "^4.17.1",
     "firebase-admin": "^8.8.0",
     "mocha": "^6.2.2",
     "node-env-file": "^0.1.8",
@@ -50,6 +51,7 @@
     "typescript": "^3.7.2"
   },
   "peerDependencies": {
-    "firebase-admin": "^8.8.0"
+    "firebase-admin": "^8.8.0",
+    "express": "^4.17.1"
   }
 }
