@@ -19,6 +19,10 @@ export class FirebaseAuthProviderImpl implements IAuthProvider {
 		return this.auth.getUser(uid);
 	}
 
+	getCustomToken(uid: string) {
+		return this.auth.createCustomToken(uid);
+	}
+
 	createUser(name: string, email: string, password: string) {
 		return this.auth.createUser({
 			displayName: name,

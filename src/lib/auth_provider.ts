@@ -12,6 +12,8 @@ export interface IAuthProvider {
 
 	getUser(uid: string): Promise<UserRecord>;
 
+	getCustomToken(uid: string): Promise<string>;
+
 	createUser(name: string, email: string, password: string): Promise<UserRecord>;
 
 	updateUser(userId: string, name?: string, email?: string, password?: string): Promise<UserRecord>;
@@ -35,6 +37,10 @@ export class FakeAuthProvider implements IAuthProvider {
 
 	async getUser(uid: string) {
 		return this.users.find(u => u.uid === uid);
+	}
+
+	async getCustomToken(uid: string) {
+		return uid;
 	}
 
 	async createUser(name: string, email: string, password: string): Promise<UserRecord> {
