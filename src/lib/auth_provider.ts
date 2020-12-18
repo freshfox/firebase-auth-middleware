@@ -12,6 +12,8 @@ export interface IAuthProvider {
 
 	getUser(uid: string): Promise<UserRecord>;
 
+	findUserByEmail(email: string): Promise<UserRecord>;
+
 	getCustomToken(uid: string): Promise<string>;
 
 	createUser(name: string, email: string, password: string): Promise<UserRecord>;
@@ -41,6 +43,10 @@ export class FakeAuthProvider implements IAuthProvider {
 
 	async getCustomToken(uid: string) {
 		return uid;
+	}
+
+	async findUserByEmail(email: string) {
+		return this.users.find(u => u.email === email);
 	}
 
 	async createUser(name: string, email: string, password: string): Promise<UserRecord> {

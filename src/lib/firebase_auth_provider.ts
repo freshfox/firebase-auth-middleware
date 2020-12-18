@@ -19,6 +19,14 @@ export class FirebaseAuthProviderImpl implements IAuthProvider {
 		return this.auth.getUser(uid);
 	}
 
+	findUserByEmail(email: string): Promise<UserRecord> {
+		try {
+			return this.auth.getUserByEmail(email);
+		} catch (e) {
+			return null;
+		}
+	}
+
 	getCustomToken(uid: string) {
 		return this.auth.createCustomToken(uid);
 	}
