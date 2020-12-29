@@ -1,9 +1,9 @@
 import * as admin from 'firebase-admin';
 import {inject, injectable} from 'inversify';
 import {FirebaseAuth, IAuthProvider} from './auth_provider';
+import {Request} from 'express';
 import DecodedIdToken = admin.auth.DecodedIdToken;
 import UserRecord = admin.auth.UserRecord;
-import {Request} from "express";
 
 export type AuthenticatedRequest<T> = Request & {
 	user: T
@@ -19,11 +19,15 @@ export class FirebaseAuthProviderImpl implements IAuthProvider {
 		return this.auth.getUser(uid);
 	}
 
-	findUserByEmail(email: string): Promise<UserRecord> {
+	async findUserByEmail(email: string): Promise<UserRecord> {
 		try {
-			return this.auth.getUserByEmail(email);
+			return await this.auth.getUserByEmail(email);
 		} catch (e) {
-			return null;
+			if (e.code === 'auth/user-not-found') {
+				return null;
+			}
+
+			throw e;
 		}
 	}
 
